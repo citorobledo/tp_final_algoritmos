@@ -6,8 +6,13 @@ using namespace std;
 
 int main() {
     Centro c;
-    c.leerArchivo();
+    c.setDatos("CEN", "Centro de Investigacion", "pais", 100.34, 10, 5, 3);
+    cout << c.leerArchivo();
     cout << "Archivo leido." << endl;
-    system("pause");
+    cout << c.leerLinea() << endl;
+    cout << c.leerLineaNumero(3) << endl;
+    c.agregarCentro();
+    //cout << c.getDatos() << endl;
+    //system("pause");
     return 0;
 }

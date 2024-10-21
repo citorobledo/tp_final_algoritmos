@@ -40,5 +40,6 @@
     "streambuf": "cpp",
     "typeinfo": "cpp",
     "files.encoding": "utf8",
+    "iomanip": "cpp"
   }
 }
