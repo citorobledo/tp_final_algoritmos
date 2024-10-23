@@ -1,6 +1,8 @@
 #include <iostream>
 #include "centro.h"
 #include "centro.cpp"
+#include "proyecto.h"
+#include "proyectos.cpp"
 
 using namespace std;
 
@@ -17,5 +19,38 @@ int main() {
     //c.agregarCentro("AST", "Centro de paradise", "argelia", 10.334, 15, 15, 13);
     //cout << c.getDatos() << endl;
     //system("pause");
+
+    // Leer proyectos existentes
+    vector<Proyecto> proyectos = leerProyectos("proyectos.txt");
+    cout << "Proyectos de Colaboracion:" << endl;
+
+    // Mostrar detalles de los proyectos
+    for (const Proyecto& proy : proyectos) {
+        cout << "Origen: " << proy.getCodigoOrigen() 
+             << ", Destino: " << proy.getCodigoDestino()
+             << ", Costo: " << proy.getCosto() 
+             << ", Duracion: " << proy.getDuracion() << endl;
+    }
+
+    // Solicitar detalles del nuevo proyecto al usuario
+    string codigoOrigen, codigoDestino;
+    float costo, duracion;
+
+    cout << "Ingrese el codigo del centro de origen: ";
+    cin >> codigoOrigen;
+    cout << "Ingrese el codigo del centro de destino: ";
+    cin >> codigoDestino;
+    cout << "Ingrese el costo: ";
+    cin >> costo;
+    cout << "Ingrese la duracion: ";
+    cin >> duracion;
+
+    // Crear un nuevo proyecto y agregarlo
+    Proyecto nuevoProyecto;
+    nuevoProyecto.setDatos(codigoOrigen, codigoDestino, costo, duracion);
+    nuevoProyecto.agregarProyecto(nuevoProyecto);
+
+    cout << "Proyecto agregado." << endl;
+
     return 0;
 }

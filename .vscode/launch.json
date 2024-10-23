@@ -1,6 +1,5 @@
 {
   "configurations": [
-    
     {
       "name": "C/C++: g++.exe Compilar y depurar el archivo activo",
       "type": "cppdbg",
@@ -30,6 +29,25 @@
         "engineLogging": true
       },
       "launchCompleteCommand": "exec-run"
+    },
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "externalConsole": true,
+      "cwd": "c:/Users/Usuario/Documents/UNAHUR/Algoritmos/tp_final_algoritmos",
+      "program": "c:/Users/Usuario/Documents/UNAHUR/Algoritmos/tp_final_algoritmos/build/Debug/outDebug",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
     }
   ],
   "version": "2.0.0"
