@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <cmath>
+#include <sstream>
+#include <iomanip>
 #include "centro.h"
 
 using namespace std;
@@ -70,13 +72,22 @@ string Centro::leerArchivo() {
     return texto;
 }
 
-void Centro::agregarCentro() {
+void Centro::agregarCentro(string cod= " ", string nom= " ", string pa= " ", float sup= 0.0, int lab= 0, int pro_nac= 0, int pro_int= 0) {
     cout << "Agregando centro..." << endl;
-    ofstream archivo("../centros.txt", ios::app);
+    ofstream archivo("../centros.txt", ios::app); // ios::app para agregar al final del archivo
     string linea;
 
     if (archivo.is_open()) {
-        cout << "Ingrese los datos del centro de investigacion: " << endl;
+        ostringstream ss;
+        ss << fixed << setprecision(1) << sup; // redondeo a 1 decimal
+        linea = cod + " " + nom + " " + pa + " " + ss.str() + " " + to_string(lab) + " " + to_string(pro_nac) + " " + to_string(pro_int);
+        archivo << endl << linea ;
+        archivo.close();
+    } else {
+        cerr << "No se pudo abrir el archivo centros.txt" << endl;
+    }
+    /*
+    cout << "Ingrese los datos del centro de investigacion: " << endl;
         cout << "Codigo: ";
         cin >> codigo;
         cout << "Nombre: ";
@@ -92,13 +103,19 @@ void Centro::agregarCentro() {
         cin >> proyectos_nacionales;
         cout << "Proyectos internacionales: ";
         cin >> proyectos_internacionales;
+    */
+}
 
-        linea = codigo + " " + nombre + " " + pais + " " + to_string (superficie) + " " + to_string(laboratorios) + " " + to_string(proyectos_nacionales) + " " + to_string(proyectos_internacionales);
-        archivo << endl << linea ;
-        archivo.close();
-    } else {
-        cerr << "No se pudo abrir el archivo centros.txt" << endl;
-    }
+Centro leerCentro(string linea) {
+    string cod, nom, pa;
+    float sup;
+    int lab, pro_nac, pro_int;
+    istringstream ss(linea);
+    cout <<"cent :" << ss.str() << endl;
+    ss >> cod >> nom >> pa >> sup >> lab >> pro_nac >> pro_int;
+    Centro c;
+    c.setDatos(cod, nom, pa, sup, lab, pro_nac, pro_int);
+    return c;
 }
 
 void Centro::setDatos(string cod= " ", string nom= " ", string pa= " ", float sup= 0.0, int lab= 0, int pro_nac= 0, int pro_int= 0) { // valores por defecto
@@ -112,6 +129,8 @@ void Centro::setDatos(string cod= " ", string nom= " ", string pa= " ", float su
 }
 
 string Centro::getDatos() {
-    string datos = "Codigo: " + codigo + "\nNombre: " + nombre + "\nPais: " + pais + "\nSuperficie: " + to_string(superficie) + "\nLaboratorios: " + to_string(laboratorios) + "\nProyectos nacionales: " + to_string(proyectos_nacionales) + "\nProyectos internacionales: " + to_string(proyectos_internacionales) + "\n";
+    ostringstream ss;
+    ss << fixed << setprecision(1) << superficie; // redondeo a 1 decimal
+    string datos = "Codigo: " + codigo + "\nNombre: " + nombre + "\nPais: " + pais + "\nSuperficie: " + ss.str() + "\nLaboratorios: " + to_string(laboratorios) + "\nProyectos nacionales: " + to_string(proyectos_nacionales) + "\nProyectos internacionales: " + to_string(proyectos_internacionales) + "\n";
     return datos;
 }

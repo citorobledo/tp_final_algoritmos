@@ -4,3 +4,4 @@ CTA Centro de Tecnologia Aplicada Argentina 6.2 10 20 8
 CIT Centro de Innovacion Tecnologica Mexico 5.4 6 8 10
 CII Centro de Innovacion Industrial Chile 7.3 9 15 6
 CPI Centro de Procesos Industriales Peru 4.8 5 6 4
+AST Centro de paradise Puerto Rico 10.3 15 15 13

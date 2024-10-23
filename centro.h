@@ -57,7 +57,8 @@ public:
     string leerArchivo();
     string leerLinea();
     string leerLineaNumero(int n);
-    void agregarCentro();
+    Centro leerCentro(string linea);
+    void agregarCentro(string cod, string nom, string pa, float sup, int lab, int pro_nac, int pro_int);
     void setDatos(string cod, string nom, string pa, float sup, int lab, int pro_nac, int pro_int);
     string getDatos();
 };
