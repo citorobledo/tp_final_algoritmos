@@ -107,12 +107,49 @@ void Centro::agregarCentro(string cod= " ", string nom= " ", string pa= " ", flo
 }
 
 Centro leerCentro(string linea) {
+    string word;
     string cod, nom, pa;
     float sup;
     int lab, pro_nac, pro_int;
     istringstream ss(linea);
     cout <<"cent :" << ss.str() << endl;
-    ss >> cod >> nom >> pa >> sup >> lab >> pro_nac >> pro_int;
+    for (int i = 0; i <= 9; i++) {
+        ss >> word;
+        switch (i) {
+            case 0:
+                cod = word;
+                break;
+            case 1:
+                nom = word;
+                break;
+            case 2:
+                nom += " " + word;
+                break;
+            case 3:
+                nom += " " + word;
+                break;
+            case 4:
+                nom += " " + word;
+                break;
+            case 5:
+                pa = word;
+                break;
+            case 6:
+                sup = stof(word);
+                break;
+            case 7:
+                lab = stoi(word);
+                break;
+            case 8:
+                pro_nac = stoi(word);
+                break;
+            case 9:
+                pro_int = stoi(word);
+                break;
+        }
+        //cout << word << endl;
+    }
+
     Centro c;
     c.setDatos(cod, nom, pa, sup, lab, pro_nac, pro_int);
     return c;

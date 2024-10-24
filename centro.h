@@ -57,6 +57,8 @@ public:
     string leerArchivo();
     string leerLinea();
     string leerLineaNumero(int n);
+    // condiciones para agregar un centro: el nombre es de 4 palabras, el pais es de 1 palabra, la superficie es un numero flotante, los laboratorios, proyectos nacionales e internacionales son enteros
+    // recibe un string con los datos de un centro y devuelve un objeto de tipo Centro
     Centro leerCentro(string linea);
     void agregarCentro(string cod, string nom, string pa, float sup, int lab, int pro_nac, int pro_int);
     void setDatos(string cod, string nom, string pa, float sup, int lab, int pro_nac, int pro_int);

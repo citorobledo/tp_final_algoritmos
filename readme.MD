@@ -60,16 +60,12 @@ CSI CTA 2800 10.0
 
 ## Funcionalidad de Búsqueda de Colaboración
 
-La aplicación debe permitir al usuario ingresar los códigos de dos centros de investigación (centro
-de origen y centro de destino), y realizar las siguientes acciones:
+La aplicación debe permitir al usuario ingresar los códigos de dos centros de investigación (centro de origen y centro de destino), y realizar las siguientes acciones:
 
 1. Buscar la colaboración más económica (basado en el costo del proyecto).
 2. Buscar la colaboración más rápida (basado en la duración del proyecto).
 
-La aplicación debe mostrar el detalle del proyecto seleccionado, incluyendo el costo de cada tramo
-(si la búsqueda se basó en costos) o la duración (si la búsqueda se basó en tiempos), y el total del
-costo o duración de la colaboración completa. Si existen múltiples combinaciones óptimas,
-deberán mostrarse todas. Si no hay conexiones posibles, se deberá informar al usuario.
+La aplicación debe mostrar el detalle del proyecto seleccionado, incluyendo el costo de cada tramo (si la búsqueda se basó en costos) o la duración (si la búsqueda se basó en tiempos), y el total del costo o duración de la colaboración completa. Si existen múltiples combinaciones óptimas, deberán mostrarse todas. Si no hay conexiones posibles, se deberá informar al usuario.
 
 ## Consideraciones:
 
