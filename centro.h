@@ -42,7 +42,7 @@ La aplicación deberá mostrar un menú que permita al usuario realizar las sigu
 using namespace std;
 
 class Centro {
-    private:
+private:
     string codigo;
     string nombre;
     string pais;
@@ -51,18 +51,26 @@ class Centro {
     int proyectos_nacionales;
     int proyectos_internacionales;
 
-
 public:
     Centro();
+    string getCodigo();
+    string getNombre();
+    string getPais();
+    float getSuperficie();
+    int getLaboratorios();
+    int getProyectosNacionales();
+    int getProyectosInternacionales();
     string leerArchivo();
     string leerLinea();
-    string leerLineaNumero(int n);
-    // condiciones para agregar un centro: el nombre es de 4 palabras, el pais es de 1 palabra, la superficie es un numero flotante, los laboratorios, proyectos nacionales e internacionales son enteros
-    // recibe un string con los datos de un centro y devuelve un objeto de tipo Centro
+    string leerLineaNumero(int n); // leer la linea n del archivo
     Centro leerCentro(string linea);
     void agregarCentro(string cod, string nom, string pa, float sup, int lab, int pro_nac, int pro_int);
     void setDatos(string cod, string nom, string pa, float sup, int lab, int pro_nac, int pro_int);
     string getDatos();
+    void leerCentros();
+    string consultarCentro(string cod);
+
+    void ordenarCentros();
 };
 
 #endif // CENTROS_H // para que no se repita el codigo en el archivo evita errores de compilacion

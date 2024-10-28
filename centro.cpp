@@ -4,8 +4,13 @@
 #include <sstream>
 #include <iomanip>
 #include "centro.h"
+#include "lista.h"
 
 using namespace std;
+
+//Lista centros; // = new Lista();
+
+//Centro::Centro(const std::string& codigo, const std::string& nombre, const std::string& pais, float superficie, int laboratorios, int proyectos_nacionales, int proyectos_internacionales) {}
 
 Centro::Centro() {
     // Constructor por defecto
@@ -19,6 +24,35 @@ Centro::Centro() {
 
 
 }
+
+string Centro::getCodigo() {
+    return codigo;
+}
+
+string Centro::getNombre() {
+    return nombre;
+}
+
+string Centro::getPais() {
+    return pais;
+}
+
+float Centro::getSuperficie() {
+    return superficie;
+}
+
+int Centro::getLaboratorios() {
+    return laboratorios;
+}
+
+int Centro::getProyectosNacionales() {
+    return proyectos_nacionales;
+}
+
+int Centro::getProyectosInternacionales() {
+    return proyectos_internacionales;
+}
+
 string Centro::leerLinea() {
 
     cout << "Leyendo linea..." << endl;
@@ -35,7 +69,79 @@ string Centro::leerLinea() {
     return linea;
 }
 
-string Centro::leerLineaNumero(int n) {
+// condiciones para agregar un centro: el nombre es de 4 palabras, el pais es de 1 palabra, la superficie es un numero flotante, los laboratorios, proyectos nacionales e internacionales son enteros
+// recibe un string con los datos de un centro y devuelve un objeto de tipo Centro   
+Centro leerCentro(string linea) {
+    string word;
+    string cod, nom, pa;
+    float sup;
+    int lab, pro_nac, pro_int;
+    istringstream ss(linea);
+    //cout <<"cent :" << ss.str() << endl;
+    for (int i = 0; i <= 9; i++) {
+        ss >> word;
+        switch (i) {
+            case 0:
+                cod = word;
+                break;
+            case 1:
+                nom = word;
+                break;
+            case 2:
+                nom += " " + word;
+                break;
+            case 3:
+                nom += " " + word;
+                break;
+            case 4:
+                nom += " " + word;
+                break;
+            case 5:
+                pa = word;
+                break;
+            case 6:
+                sup = stof(word);
+                break;
+            case 7:
+                lab = stoi(word);
+                break;
+            case 8:
+                pro_nac = stoi(word);
+                break;
+            case 9:
+                pro_int = stoi(word);
+                break;
+        }
+        //cout << word << endl;
+    }
+
+    Centro c;
+    c.setDatos(cod, nom, pa, sup, lab, pro_nac, pro_int);
+    return c;
+}
+/*
+    condiciones para cargar centros: recibe una lista vacia y la direccion del archivo con los centros en formato arcivo.txt
+    y agrega los centros a la lista enlazada.
+*/
+void leerCentros(Lista &centros, string direccion) {
+    cout << "Leyendo centros..." << endl;
+    ifstream archivo(direccion);
+    string linea;
+    int i = 1;
+
+    if (archivo.is_open()) {
+        while (getline(archivo, linea)) {
+            //centros.push_back(leerCentro(linea));
+            centros.alta(leerCentro(linea), i);
+            i++;
+        }
+        archivo.close();
+    } else {
+        cerr << "No se pudo abrir el archivo centros.txt" << endl;
+    } 
+ }
+
+string leerLineaNumero(int n) {
     cout << "Leyendo linea " << n << "..." << endl;
     ifstream archivo("../centros.txt");
     string linea;
@@ -106,55 +212,6 @@ void Centro::agregarCentro(string cod= " ", string nom= " ", string pa= " ", flo
     */
 }
 
-Centro leerCentro(string linea) {
-    string word;
-    string cod, nom, pa;
-    float sup;
-    int lab, pro_nac, pro_int;
-    istringstream ss(linea);
-    cout <<"cent :" << ss.str() << endl;
-    for (int i = 0; i <= 9; i++) {
-        ss >> word;
-        switch (i) {
-            case 0:
-                cod = word;
-                break;
-            case 1:
-                nom = word;
-                break;
-            case 2:
-                nom += " " + word;
-                break;
-            case 3:
-                nom += " " + word;
-                break;
-            case 4:
-                nom += " " + word;
-                break;
-            case 5:
-                pa = word;
-                break;
-            case 6:
-                sup = stof(word);
-                break;
-            case 7:
-                lab = stoi(word);
-                break;
-            case 8:
-                pro_nac = stoi(word);
-                break;
-            case 9:
-                pro_int = stoi(word);
-                break;
-        }
-        //cout << word << endl;
-    }
-
-    Centro c;
-    c.setDatos(cod, nom, pa, sup, lab, pro_nac, pro_int);
-    return c;
-}
-
 void Centro::setDatos(string cod= " ", string nom= " ", string pa= " ", float sup= 0.0, int lab= 0, int pro_nac= 0, int pro_int= 0) { // valores por defecto
     codigo = cod;
     nombre = nom;
@@ -170,4 +227,37 @@ string Centro::getDatos() {
     ss << fixed << setprecision(1) << superficie; // redondeo a 1 decimal
     string datos = "Codigo: " + codigo + "\nNombre: " + nombre + "\nPais: " + pais + "\nSuperficie: " + ss.str() + "\nLaboratorios: " + to_string(laboratorios) + "\nProyectos nacionales: " + to_string(proyectos_nacionales) + "\nProyectos internacionales: " + to_string(proyectos_internacionales) + "\n";
     return datos;
+}
+
+string consultarCentro(string cod, Lista centros) {
+    cout << "Consultando centro " << cod << endl;
+    string centro = "Centro no encontrado.";
+    for (int i = 0; i < centros.obtener_largo(); i++) {
+        if (centros.consulta(i).getCodigo() == cod ) {
+            centro = centros.consulta(i).getDatos();
+        }
+    }
+    return centro;
+}
+
+void ordenarCentros(Lista &centros) {
+    cout << "Ordenando centros..." << endl;
+    // ordenar por nombre
+    for (int i = 0; i < centros.obtener_largo(); i++) {
+        for (int j = 0; j < centros.obtener_largo() ; j++) {
+            // implementar un switch para ordenar por cualquier atributo
+            if (centros.consulta(j).getCodigo() > centros.consulta(j + 1).getCodigo()) {
+                //cout << "Intercambiando " << centros.consulta(j).getCodigo() << " con " << centros.consulta(j + 1).getCodigo() << endl;
+                Centro temp = centros.consulta(j);
+                // aca tengo que hacer un intercambio de los nodos en la lista entre j y j+1 
+                //cout << temp.getCodigo() << endl;
+                //centros.consulta(j) = centros.consulta(j + 1);
+                //centros.consulta(j + 1) = temp;
+                centros.baja(j);
+                centros.alta(temp, j + 1);
+            }
+            //cout << "Intercambiados " << centros.consulta(j).getCodigo() << " con " << centros.consulta(j + 1).getCodigo() << endl;
+
+        }
+    }
 }
