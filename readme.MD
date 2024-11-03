@@ -37,7 +37,7 @@ La aplicación deberá mostrar un menú que permita al usuario realizar las sigu
 - Se debe diseñar una función de hashing que asegure una buena dispersión de los datos.
 
 
-#########################################################################################################################################
+#####################################################################################################################################################################
 ## Proyectos Científicos
 
 A partir de la lectura de un archivo de texto llamado **proyectos.txt**, que deberá realizarse

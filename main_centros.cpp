@@ -41,7 +41,7 @@ int main() {
     //cout << centros[1].getCodigo() << endl;
     centros.mostrar();
 
-    ordenarCentros(centros);
+    ordenarCentros(centros, 2);
 
     centros.mostrar();
 

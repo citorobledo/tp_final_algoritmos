@@ -77,16 +77,16 @@ int Lista::obtener_largo()
 
 void Lista::mostrar()
 {
-      cout<<"[";
+      cout<<"[" << endl;
 
       if(!vacia())
       {
           for (int i = 1; i < largo; i++)
             {
-                cout << consulta(i).getCodigo() << ", ";
+                cout << consulta(i).getDatos() << endl;
             }
             //cout<<this->consulta(i)<<",";
-        cout << consulta(largo).getCodigo();
+        cout << consulta(largo).getDatos() << endl;
       }
 
       cout<<"]"<<endl;

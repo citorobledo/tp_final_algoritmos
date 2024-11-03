@@ -240,13 +240,43 @@ string consultarCentro(string cod, Lista centros) {
     return centro;
 }
 
-void ordenarCentros(Lista &centros) {
-    cout << "Ordenando centros..." << endl;
+string consultarAtributo(Lista centros, int pos, int atributo) {
+    //cout << "Consultando atributo " << atributo << " del centro " << pos << endl;
+    string atributo_str = "Atributo no encontrado.";
+    switch (atributo) {
+        case 1:
+            atributo_str = centros.consulta(pos).getCodigo();
+            break;
+        case 2:
+            atributo_str = centros.consulta(pos).getNombre();
+            break;
+        case 3:
+            atributo_str = centros.consulta(pos).getPais();
+            break;
+        case 4:
+            atributo_str = to_string(centros.consulta(pos).getSuperficie());
+            break;
+        case 5:
+            atributo_str = to_string(centros.consulta(pos).getLaboratorios());
+            break;
+        case 6:
+            atributo_str = to_string(centros.consulta(pos).getProyectosNacionales());
+            break;
+        case 7:
+            atributo_str = to_string(centros.consulta(pos).getProyectosInternacionales());
+            break;
+    }
+    return atributo_str;
+}
+
+void ordenarCentros(Lista &centros, int at) {
+    cout << "Ordenando centros... :" << endl;
     // ordenar por nombre
     for (int i = 0; i < centros.obtener_largo(); i++) {
         for (int j = 0; j < centros.obtener_largo() ; j++) {
+            
             // implementar un switch para ordenar por cualquier atributo
-            if (centros.consulta(j).getCodigo() > centros.consulta(j + 1).getCodigo()) {
+            if (consultarAtributo(centros, j, at) > consultarAtributo(centros, j+1, at)) {
                 //cout << "Intercambiando " << centros.consulta(j).getCodigo() << " con " << centros.consulta(j + 1).getCodigo() << endl;
                 Centro temp = centros.consulta(j);
                 // aca tengo que hacer un intercambio de los nodos en la lista entre j y j+1 
