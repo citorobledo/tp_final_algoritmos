@@ -38,6 +38,8 @@ La aplicación deberá mostrar un menú que permita al usuario realizar las sigu
 #include <string>
 #include <fstream>
 #include <iostream>
+//#include "lista.cpp"
+//#include "lista.h"
 
 using namespace std;
 
@@ -64,12 +66,13 @@ public:
     string leerLinea();
     string leerLineaNumero(int n); // leer la linea n del archivo
     Centro leerCentro(string linea);
-    void agregarCentro(string cod, string nom, string pa, float sup, int lab, int pro_nac, int pro_int);
+    void agregarCentro(string cod, string nom, string pa, float sup, int lab, int pro_nac, int pro_int, string ruta);
+    void eliminarCentro(string cod);
     void setDatos(string cod, string nom, string pa, float sup, int lab, int pro_nac, int pro_int);
     string getDatos();
     void leerCentros();
+    int buscarPosicion();
     string consultarCentro(string cod);
-
     void ordenarCentros();
 };
 

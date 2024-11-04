@@ -40,7 +40,9 @@
     "streambuf": "cpp",
     "typeinfo": "cpp",
     "files.encoding": "utf8",
-    "iomanip": "cpp"
+    "iomanip": "cpp",
+    "cstring": "cpp",
+    "ctime": "cpp"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

@@ -123,9 +123,9 @@ Centro leerCentro(string linea) {
     condiciones para cargar centros: recibe una lista vacia y la direccion del archivo con los centros en formato arcivo.txt
     y agrega los centros a la lista enlazada.
 */
-void leerCentros(Lista &centros, string direccion) {
+void leerCentros(Lista &centros, string ruta) {
     cout << "Leyendo centros..." << endl;
-    ifstream archivo(direccion);
+    ifstream archivo(ruta);
     string linea;
     int i = 1;
 
@@ -178,9 +178,9 @@ string Centro::leerArchivo() {
     return texto;
 }
 
-void Centro::agregarCentro(string cod= " ", string nom= " ", string pa= " ", float sup= 0.0, int lab= 0, int pro_nac= 0, int pro_int= 0) {
-    cout << "Agregando centro..." << endl;
-    ofstream archivo("../centros.txt", ios::app); // ios::app para agregar al final del archivo
+void agregarCentro(string cod= " ", string nom= " ", string pa= " ", float sup= 0.0, int lab= 0, int pro_nac= 0, int pro_int= 0, string ruta = "") {
+    cout << "Centro agregado..." << endl;
+    ofstream archivo(ruta, ios::app); // ios::app para agregar al final del archivo
     string linea;
 
     if (archivo.is_open()) {
@@ -212,6 +212,28 @@ void Centro::agregarCentro(string cod= " ", string nom= " ", string pa= " ", flo
     */
 }
 
+void eliminarCentro(string cod, string ruta) {
+    cout << "Centro eliminado..." << endl;
+    ifstream archivo(ruta);
+    ofstream temp("../temp.txt");
+    string linea;
+
+    if (archivo.is_open() && temp.is_open()) {
+        while (getline(archivo, linea)) {
+            if (linea.substr(0, 3) != cod) {
+                temp << linea << endl;
+            }
+        }
+        archivo.close();
+        temp.close();
+        remove(ruta.c_str());
+        rename("../temp.txt", ruta.c_str());
+        
+    } else {
+        cerr << "No se pudo abrir el archivo centros.txt" << endl;
+    }
+}
+
 void Centro::setDatos(string cod= " ", string nom= " ", string pa= " ", float sup= 0.0, int lab= 0, int pro_nac= 0, int pro_int= 0) { // valores por defecto
     codigo = cod;
     nombre = nom;
@@ -229,10 +251,21 @@ string Centro::getDatos() {
     return datos;
 }
 
+int buscarPosicion(Lista centros, string codigo) {
+    cout << "Buscando posicion del centro " << codigo << endl;
+    int pos = 0;
+    for (int i = 1; i < centros.obtener_largo()+1; i++) {
+        if (centros.consulta(i).getCodigo() == codigo) {
+            pos = i;
+        }
+    }
+    return pos;
+}
+
 string consultarCentro(string cod, Lista centros) {
     cout << "Consultando centro " << cod << endl;
     string centro = "Centro no encontrado.";
-    for (int i = 0; i < centros.obtener_largo(); i++) {
+    for (int i = 1; i < centros.obtener_largo()+1; i++) {
         if (centros.consulta(i).getCodigo() == cod ) {
             centro = centros.consulta(i).getDatos();
         }
