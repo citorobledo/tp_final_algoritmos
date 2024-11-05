@@ -303,7 +303,7 @@ string consultarAtributo(Lista centros, int pos, int atributo) {
 }
 
 void ordenarCentros(Lista &centros, int at) {
-    cout << "Ordenando centros... :" << endl;
+    //cout << "Ordenando centros... :" << endl;
     // ordenar por nombre
     for (int i = 0; i < centros.obtener_largo(); i++) {
         for (int j = 0; j < centros.obtener_largo() ; j++) {
