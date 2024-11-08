@@ -25,48 +25,7 @@ void mostrarMenu() {
 int main() {
     Lista centros; // = new centros();
     leerCentros(centros, "../centros.txt");
-    //Centro c;
-    //string b = "CIT Centro de Innovacion Tecnologica Mexico 5.4 6 8 10";
-    //Centro a;
-    //c.setDatos("CEN", "Centro de Investigacion", "pais", 100.34, 10, 5, 3);
-    //cout << c.leerArchivo();
-    //cout << "Archivo leido." << endl;
-    //cout << c.leerLinea() << endl;
-    //cout << leerLineaNumero(3) << endl;
-    //a = leerCentro( b);
-    //cout << c.getDatos() << endl;
-    //cout << a.getDatos() << endl;
-    //c.agregarCentro("AST", "Centro de paradise", "argelia", 10.334, 15, 15, 13);
-    //cout << c.getDatos() << endl;
-    //system("pause");
-    //cout << centros[0].getNombre() << endl;
-    //cout << centros[1].getCodigo() << endl;
-    //cout << centros[6].getPais() << endl;
-    //cout << centros.size() << endl;
-    //ordenarCentros();
-    //cout << centros[0].getNombre() << endl;
-    //cout << centros[1].getCodigo() << endl;
-    //ordenarCentros(centros, 2);
-
-    //centros.mostrar();
-
-    //cout << consultarCentro("CPI", centros) << endl;
     
-    //centros.alta(c, 1);
-    //centros.alta(centros[1], 2);
-    //centros.alta(centros[2], 3);
-    //centros.alta(a, 4);
-
-    //cout << centros.consulta(1).getNombre() << endl;
-    //cout << centros.consulta(2).getNombre() << endl;
-    //cout << centros.consulta(3).getNombre() << endl;
-    //cout << centros.consulta(4).getNombre() << endl;
-
-    //centros.mostrar();
-//
-    //centros.baja(2);
-//
-    //centros.mostrar();
     int opcion;
     string codigo, nombre, pais;
     float superficie;
@@ -121,7 +80,7 @@ int main() {
 
             case 5:
                 int atributo;
-                cout << "Opciones";
+                cout << "Opciones" << endl;
                 cout << "1. Codigo\n";
                 cout << "2. Nombre\n";
                 cout << "3. Pais\n";
@@ -176,6 +135,7 @@ int main() {
                 break;
         }
     } while(opcion != 6);
+    system("pause");
 
   return 0;
 }
