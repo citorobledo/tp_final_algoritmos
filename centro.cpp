@@ -25,31 +25,31 @@ Centro::Centro() {
 
 }
 
-string Centro::getCodigo() {
+string Centro::getCodigo() const {
     return codigo;
 }
 
-string Centro::getNombre() {
+string Centro::getNombre() const {
     return nombre;
 }
 
-string Centro::getPais() {
+string Centro::getPais() const {
     return pais;
 }
 
-float Centro::getSuperficie() {
+float Centro::getSuperficie() const {
     return superficie;
 }
 
-int Centro::getLaboratorios() {
+int Centro::getLaboratorios() const {
     return laboratorios;
 }
 
-int Centro::getProyectosNacionales() {
+int Centro::getProyectosNacionales() const {
     return proyectos_nacionales;
 }
 
-int Centro::getProyectosInternacionales() {
+int Centro::getProyectosInternacionales() const {
     return proyectos_internacionales;
 }
 
