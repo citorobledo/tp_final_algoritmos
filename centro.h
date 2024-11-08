@@ -55,13 +55,13 @@ private:
 
 public:
     Centro();
-    string getCodigo();
-    string getNombre();
-    string getPais();
-    float getSuperficie();
-    int getLaboratorios();
-    int getProyectosNacionales();
-    int getProyectosInternacionales();
+    string getCodigo() const;
+    string getNombre() const;
+    string getPais() const;
+    float getSuperficie() const;
+    int getLaboratorios() const;
+    int getProyectosNacionales() const;
+    int getProyectosInternacionales() const;
     string leerArchivo();
     string leerLinea();
     string leerLineaNumero(int n); // leer la linea n del archivo

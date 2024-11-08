@@ -2,55 +2,56 @@
 #include "centro.h"
 #include "centro.cpp"
 #include "proyecto.h"
-#include "proyectos.cpp"
+#include "Grafo.h"
+#include "Arista.h"
 
 using namespace std;
 
 int main() {
-    Centro c;
-    Centro a;
-    c.setDatos("CEN", "Centro de Investigacion", "pais", 100.34, 10, 5, 3);
-    cout << c.leerArchivo();
-    cout << "Archivo leido." << endl;
-    cout << c.leerLinea() << endl;
-    cout << c.leerLineaNumero(3) << endl;
-    a = leerCentro(c.leerLineaNumero(1));
-    cout << a.getDatos() << endl;
-    //c.agregarCentro("AST", "Centro de paradise", "argelia", 10.334, 15, 15, 13);
-    //cout << c.getDatos() << endl;
-    //system("pause");
+    Grafo grafo;
 
-    // Leer proyectos existentes
-    vector<Proyecto> proyectos = leerProyectos("proyectos.txt");
-    cout << "Proyectos de Colaboracion:" << endl;
-
-    // Mostrar detalles de los proyectos
-    for (const Proyecto& proy : proyectos) {
-        cout << "Origen: " << proy.getCodigoOrigen() 
-             << ", Destino: " << proy.getCodigoDestino()
-             << ", Costo: " << proy.getCosto() 
-             << ", Duracion: " << proy.getDuracion() << endl;
+    // Abrir el archivo proyectos.txt
+    ifstream archivo("proyectos.txt");
+    if (!archivo.is_open()) {
+        cerr << "No se pudo abrir el archivo proyectos.txt" << endl;
+        return 1;
     }
 
-    // Solicitar detalles del nuevo proyecto al usuario
-    string codigoOrigen, codigoDestino;
-    float costo, duracion;
+    string linea;
+    while (getline(archivo, linea)) {
+        string cod_origen, cod_destino;
+        float costo, duracion;
 
-    cout << "Ingrese el codigo del centro de origen: ";
-    cin >> codigoOrigen;
-    cout << "Ingrese el codigo del centro de destino: ";
-    cin >> codigoDestino;
-    cout << "Ingrese el costo: ";
-    cin >> costo;
-    cout << "Ingrese la duracion: ";
-    cin >> duracion;
+        // Procesar cada línea usando stringstream
+        stringstream ss(linea);
+        ss >> cod_origen >> cod_destino >> costo >> duracion;
 
-    // Crear un nuevo proyecto y agregarlo
-    Proyecto nuevoProyecto;
-    nuevoProyecto.setDatos(codigoOrigen, codigoDestino, costo, duracion);
-    nuevoProyecto.agregarProyecto(nuevoProyecto);
+        // Buscar o agregar nodos de origen y destino
+        Centro* origen = grafo.encontrarNodo(cod_origen);
+        if (!origen) {
+            origen = new Centro(); // Crear un nuevo centro si no existe
+            origen->setDatos(cod_origen, "", "", 0.0, 0, 0, 0); // Asegúrate de llenar los datos correctamente
+            grafo.agregarNodo(origen); // Agregar al grafo
+        }
 
-    cout << "Proyecto agregado." << endl;
+        Centro* destino = grafo.encontrarNodo(cod_destino);
+        if (!destino) {
+            destino = new Centro(); // Crear un nuevo centro si no existe
+            destino->setDatos(cod_destino, "", "", 0.0, 0, 0, 0); // Asegúrate de llenar los datos correctamente
+            grafo.agregarNodo(destino);
+        }
+
+        // Crear una arista entre origen y destino
+        Arista* arista = new Arista(origen, destino, costo, duracion);
+        grafo.agregarArista(arista);
+    }
+
+    // Cerrar el archivo
+    archivo.close();
+
+    // Mostrar los nodos y aristas del grafo para verificar
+    grafo.mostrarNodos();
+    grafo.mostrarAristas();
 
     return 0;
 }
