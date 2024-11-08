@@ -47,21 +47,30 @@ Centro Lista::consulta(int pos)
 
 void Lista::baja(int pos)
 {
+    cout << "entro baja\n";
+    system("pause");
     Nodo* borrar;
     if (pos == 1)
     {
-        borrar = primero;
-        primero = borrar->obtener_siguiente();
+        cout << "entro if " << pos<< endl;
+        //borrar = primero;
+        //primero = borrar->obtener_siguiente();
     }
     else
     {
+        cout << "entro else\n";
         Nodo* anterior = obtener_nodo(pos - 1);
-        borrar = anterior->obtener_siguiente();
+        cout << "anterior\n";
+        borrar = anterior->obtener_siguiente();//nodo a borrar
+        cout << "borrar\n";
         Nodo* siguiente = borrar->obtener_siguiente();
+        cout << "siguiente\n";
         anterior->cambiar_siguiente(siguiente);
+        cout << " anterior=sig\n";
     }
     delete borrar;
     largo--;
+    cout << "salio baja\n" ;
 }
 
 Lista::~Lista()

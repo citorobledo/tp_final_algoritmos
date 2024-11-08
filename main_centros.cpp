@@ -24,18 +24,18 @@ void mostrarMenu() {
 
 int main() {
     Lista centros; // = new centros();
+    Centro c;
+
     leerCentros(centros, "../centros.txt");
     
-    int opcion;
     string codigo, nombre, pais;
     float superficie;
-    int laboratorios, proyectosNacionales, proyectosInternacionales, pos;
+    int laboratorios, proyectosNacionales, proyectosInternacionales, pos, atributo, opcion;
 
     do {
         mostrarMenu();
         cout << "Seleccione una opcion: " ;
         cin >> opcion;
-        Centro c;
 
         switch(opcion) {
             case 1:
@@ -63,15 +63,19 @@ int main() {
                 cin >> proyectosInternacionales;
                 c.setDatos(codigo, nombre, pais, superficie, laboratorios, proyectosNacionales, proyectosInternacionales);
                 centros.alta(c , centros.obtener_largo()+1);
-                agregarCentro(codigo, nombre, pais, superficie, laboratorios, proyectosNacionales, proyectosInternacionales, "../centros.txt");
+                //agregarCentro(codigo, nombre, pais, superficie, laboratorios, proyectosNacionales, proyectosInternacionales, "../centros.txt");
                 break;
 
             case 3:
                 cout << "Ingrese el codigo del centro a eliminar: ";
                 cin >> codigo;
                 pos = buscarPosicion(centros, codigo);
+                //pos = 3;
+                cout << "posicion " << pos << endl; 
+                cout << "BAJA DE CENTRO" << endl;
                 centros.baja(pos);
-                eliminarCentro(codigo, "../centros.txt");
+                cout << "eliminando " << endl;
+                //eliminarCentro(codigo, "../centros.txt");
                 break;
 
             case 4:
@@ -79,7 +83,6 @@ int main() {
                 break;  
 
             case 5:
-                int atributo;
                 cout << "Opciones" << endl;
                 cout << "1. Codigo\n";
                 cout << "2. Nombre\n";
@@ -122,6 +125,7 @@ int main() {
                     ordenarCentros(centros, 7);
                     break;
                 default:
+                    cout << "ingrese una opcion correcta\n";
                     break;
                 }
                 break;

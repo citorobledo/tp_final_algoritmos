@@ -253,10 +253,13 @@ string Centro::getDatos() {
 
 int buscarPosicion(Lista centros, string codigo) {
     cout << "Buscando posicion del centro " << codigo << endl;
-    int pos = 0;
+    int pos = 1;
     for (int i = 1; i < centros.obtener_largo()+1; i++) {
+        cout << "buscarPosicion for" << centros.obtener_largo() << endl;
         if (centros.consulta(i).getCodigo() == codigo) {
             pos = i;
+            cout << "encontrado en " << pos << endl;
+            system("pause"); 
         }
     }
     return pos;
@@ -306,7 +309,7 @@ void ordenarCentros(Lista &centros, int at) {
     //cout << "Ordenando centros... :" << endl;
     // ordenar por nombre
     for (int i = 0; i < centros.obtener_largo(); i++) {
-        for (int j = 0; j < centros.obtener_largo() ; j++) {
+        for (int j = 1; j < centros.obtener_largo()+1 ; j++) {
             
             // implementar un switch para ordenar por cualquier atributo
             if (consultarAtributo(centros, j, at) > consultarAtributo(centros, j+1, at)) {
