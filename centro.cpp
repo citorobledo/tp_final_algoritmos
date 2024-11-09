@@ -225,69 +225,8 @@ void Centro::setDatos(string cod= " ", string nom= " ", string pa= " ", float su
 string Centro::getDatos() {
     ostringstream ss;
     ss << fixed << setprecision(1) << superficie; // redondeo a 1 decimal
-    string datos = "Codigo: " + codigo + "\nNombre: " + nombre + "\nPais: " + pais + "\nSuperficie: " + ss.str() + "\nLaboratorios: " + to_string(laboratorios) + "\nProyectos nacionales: " + to_string(proyectos_nacionales) + "\nProyectos internacionales: " + to_string(proyectos_internacionales) + "\n";
+    string datos = "Codigo: " + codigo + "\nNombre: " + nombre + "\nPais: " + pais + "\nSuperficie: " + ss.str() + "\nLaboratorios: " + to_string(laboratorios) + "\nProyectos nacionales: " + to_string(proyectos_nacionales) + "\nProyectos internacionales: " + to_string(proyectos_internacionales);
     return datos;
 }
 
-string consultarCentro(string cod, Lista centros) {
-    cout << "Consultando centro " << cod << endl;
-    string centro = "Centro no encontrado.";
-    for (int i = 0; i < centros.obtener_largo(); i++) {
-        if (centros.consulta(i).getCodigo() == cod ) {
-            centro = centros.consulta(i).getDatos();
-        }
-    }
-    return centro;
-}
 
-string consultarAtributo(Lista centros, int pos, int atributo) {
-    //cout << "Consultando atributo " << atributo << " del centro " << pos << endl;
-    string atributo_str = "Atributo no encontrado.";
-    switch (atributo) {
-        case 1:
-            atributo_str = centros.consulta(pos).getCodigo();
-            break;
-        case 2:
-            atributo_str = centros.consulta(pos).getNombre();
-            break;
-        case 3:
-            atributo_str = centros.consulta(pos).getPais();
-            break;
-        case 4:
-            atributo_str = to_string(centros.consulta(pos).getSuperficie());
-            break;
-        case 5:
-            atributo_str = to_string(centros.consulta(pos).getLaboratorios());
-            break;
-        case 6:
-            atributo_str = to_string(centros.consulta(pos).getProyectosNacionales());
-            break;
-        case 7:
-            atributo_str = to_string(centros.consulta(pos).getProyectosInternacionales());
-            break;
-    }
-    return atributo_str;
-}
-
-void ordenarCentros(Lista &centros, int at) {
-    cout << "Ordenando centros... :" << endl;
-    // ordenar por nombre
-    for (int i = 0; i < centros.obtener_largo(); i++) {
-        for (int j = 0; j < centros.obtener_largo() ; j++) {
-            
-            // implementar un switch para ordenar por cualquier atributo
-            if (consultarAtributo(centros, j, at) > consultarAtributo(centros, j+1, at)) {
-                //cout << "Intercambiando " << centros.consulta(j).getCodigo() << " con " << centros.consulta(j + 1).getCodigo() << endl;
-                Centro temp = centros.consulta(j);
-                // aca tengo que hacer un intercambio de los nodos en la lista entre j y j+1 
-                //cout << temp.getCodigo() << endl;
-                //centros.consulta(j) = centros.consulta(j + 1);
-                //centros.consulta(j + 1) = temp;
-                centros.baja(j);
-                centros.alta(temp, j + 1);
-            }
-            //cout << "Intercambiados " << centros.consulta(j).getCodigo() << " con " << centros.consulta(j + 1).getCodigo() << endl;
-
-        }
-    }
-}

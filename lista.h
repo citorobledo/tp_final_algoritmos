@@ -39,6 +39,14 @@ public:
     int obtener_largo();
 
     void mostrar();
+
+    void ordenarCentros(int atributo);
+
+    string consultarAtributo(int pos, int atributo);
+
+    string consultarCentro(string cod);
+
+    int buscarPosicion(string codigo);
     
 private:
     Nodo* obtener_nodo(int pos);
