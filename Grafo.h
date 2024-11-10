@@ -3,34 +3,25 @@
 
 #include <vector>
 #include <string>
-#include "Centro.h"    
-#include "Arista.h"   
+#include "Vertice.h"    // Include Vertice instead of Centro
+#include "Arista.h"     // Assuming Arista uses Vertice as well
 
 class Grafo {
 private:
-    // Vectores para almacenar nodos (centros) y aristas
-    std::vector<Centro*> nodos;
+    std::vector<Vertice*> nodos;   // Change Centro* to Vertice*
     std::vector<Arista*> aristas;
 
 public:
-    // Constructor
     Grafo() = default;
 
-
-    // Métodos para agregar nodos y aristas
-    void agregarNodo(Centro* centro);  // Agregar un nodo (centro)
-    void agregarArista(Arista* arista);  // Agregar una arista
-
-    // Métodos para buscar nodos
-    bool hayNodo(const std::string& codigo);  // Comprobar existencia de un nodo
-    Centro* encontrarNodo(const std::string& codigo);  // Buscar un nodo y devolverlo
-
-    // Métodos para mostrar nodos y aristas
-    void mostrarNodos();  // Mostrar todos los nodos
-    void mostrarAristas();  // Mostrar todas las aristas
-
-    // Obtener las aristas de un nodo específico
-    std::vector<Arista*> getAristas(Centro* centro);  // Obtener aristas de un nodo
+    void cargarDesdeArchivo(const std::string& filename);
+    void agregarNodo(Vertice* vertice);      // Update parameter type to Vertice*
+    void agregarArista(Arista* arista);
+    bool hayNodo(const std::string& codigo);
+    Vertice* encontrarNodo(const std::string& codigo);
+    void mostrarNodos();
+    void mostrarAristas();
+    std::vector<Arista*> getAristas(Vertice* vertice);
 };
 
 #endif // GRAFO_H

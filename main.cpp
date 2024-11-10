@@ -1,9 +1,20 @@
 #include <iostream>
+#include "proyecto.h"
+#include "proyectos.cpp"
+#include "Vertice.h"
+#include "Vertice.cpp"
+#include "Arista.h"
+#include "Arista.cpp"
+#include "nodo.h"
+#include "nodo.cpp"
 #include "centro.h"
 #include "centro.cpp"
-#include "proyecto.h"
+#include "lista.h"
+#include "lista.cpp"
+#include "Grafo.cpp"
 #include "Grafo.h"
-#include "Arista.h"
+#include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -27,17 +38,23 @@ int main() {
         ss >> cod_origen >> cod_destino >> costo >> duracion;
 
         // Buscar o agregar nodos de origen y destino
-        Centro* origen = grafo.encontrarNodo(cod_origen);
+        Vertice* origen = grafo.encontrarNodo(cod_origen);
         if (!origen) {
-            origen = new Centro(); // Crear un nuevo centro si no existe
-            origen->setDatos(cod_origen, "", "", 0.0, 0, 0, 0); // Asegúrate de llenar los datos correctamente
+            // Crear el centro origen (Nodo) con el código correspondiente
+            Centro* centroOrigen = new Centro();
+            centroOrigen->setDatos(cod_origen, "", "", 0.0, 0, 0, 0);  // Asegúrate de llenar los datos correctamente
+            Nodo* nodoOrigen = new Nodo(*centroOrigen);  // Crear un nodo con el centro
+            origen = new Vertice(nodoOrigen);  // Crear un vértice con el nodo de origen
             grafo.agregarNodo(origen); // Agregar al grafo
         }
 
-        Centro* destino = grafo.encontrarNodo(cod_destino);
+        Vertice* destino = grafo.encontrarNodo(cod_destino);
         if (!destino) {
-            destino = new Centro(); // Crear un nuevo centro si no existe
-            destino->setDatos(cod_destino, "", "", 0.0, 0, 0, 0); // Asegúrate de llenar los datos correctamente
+            // Crear el centro destino (Nodo) con el código correspondiente
+            Centro* centroDestino = new Centro();
+            centroDestino->setDatos(cod_destino, "", "", 0.0, 0, 0, 0);  // Asegúrate de llenar los datos correctamente
+            Nodo* nodoDestino = new Nodo(*centroDestino);  // Crear un nodo con el centro
+            destino = new Vertice(nodoDestino);  // Crear un vértice con el nodo de destino
             grafo.agregarNodo(destino);
         }
 
@@ -53,5 +70,11 @@ int main() {
     grafo.mostrarNodos();
     grafo.mostrarAristas();
 
+    string codigoVertice = "CSI";
+    if (grafo.hayNodo(codigoVertice)) {
+        cout << "El nodo con codigo " << codigoVertice << " existe en el grafo." << endl;
+    } else {
+        cout << "El nodo con codigo " << codigoVertice << " no existe en el grafo." << endl;
+    }
     return 0;
 }

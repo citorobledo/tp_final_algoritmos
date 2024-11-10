@@ -1,22 +1,24 @@
 #ifndef ARISTA_H
 #define ARISTA_H
 
-#include <string>
-#include "Centro.h"  // Incluir la clase Centro para usar punteros a Centro
+#include "Vertice.h"  
 
 class Arista {
 private:
-    Centro* origen;      // Puntero al centro origen
-    Centro* destino;     // Puntero al centro destino
-    float costo;         // Costo del viaje
-    float duracion;      // Duración del viaje
+    Vertice* origen;  
+    Vertice* destino; 
+    int costoDeViaje;
+    double horasViaje;
 
 public:
-    Arista(Centro* origen, Centro* destino, float costo, float duracion);
-    Centro* getOrigen() const;     // Método para obtener el nodo de origen
-    Centro* getDestino() const;    // Método para obtener el nodo destino
-    float getCosto() const;        // Método para obtener el costo
-    float getDuracion() const;     // Método para obtener la duración
+    // Constructor de la clase Arista
+    Arista(Vertice* src, Vertice* dest, int w, double h);
+
+    // Getters para acceder a los atributos
+    Vertice* getOrigen() const { return origen; }  
+    Vertice* getDestino() const { return destino; }  
+    int getCosto() const { return costoDeViaje; }
+    double getDuracion() const { return horasViaje; }
 };
 
 #endif // ARISTA_H

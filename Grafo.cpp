@@ -4,72 +4,51 @@
 
 using namespace std;
 
-// Agregar un nodo (Centro)
-void Grafo::agregarNodo(Centro* centro) {
-    nodos.push_back(centro);
+// Agregar un nodo (Vertice) al grafo
+void Grafo::agregarNodo(Vertice* vertice) {
+    nodos.push_back(vertice);
 }
 
-// Agregar una arista
+// Agregar una arista al grafo
 void Grafo::agregarArista(Arista* arista) {
-    // Añade una arista al grafo
     aristas.push_back(arista);
 }
 
-// Comprobar si existe  el nodo con el código dado 
+// Comprobar si existe un nodo con el código dado (por ejemplo, por código de centro)
 bool Grafo::hayNodo(const string& codigo) {
     for (const auto& nodo : nodos) {
-        if (nodo->getCodigo() == codigo) {
+        if (nodo->nodo->obtener_dato().getCodigo() == codigo) {  // Compara con el código del Centro
             return true;
         }
     }
     return false;
 }
 
-// Encontrar un nodo específico con el código dado
-Centro* Grafo::encontrarNodo(const string& codigo) {
+// Encontrar un nodo específico por su código (por ejemplo, por código de centro)
+Vertice* Grafo::encontrarNodo(const string& codigo) {
     for (auto& nodo : nodos) {
-        if (nodo->getCodigo() == codigo) {
+        if (nodo->nodo->obtener_dato().getCodigo() == codigo) {  // Compara con el código del Centro
             return nodo;
         }
     }
-    return nullptr;
+    return nullptr;  // Si no se encuentra, devuelve nullptr
 }
 
-// Mostrar todos los nodos (centros) en el grafo
+// Mostrar todos los nodos (vértices) en el grafo
 void Grafo::mostrarNodos() {
     cout << "Nodos en el grafo:" << endl;
     for (const auto& nodo : nodos) {
-        cout << "Nodo " << nodo->getCodigo() << endl;
+        cout << "Codigo del Centro: " << nodo->nodo->obtener_dato().getCodigo() << endl;
     }
 }
 
 // Mostrar todas las aristas en el grafo
 void Grafo::mostrarAristas() {
     cout << "Aristas en el grafo:" << endl;
-    for (const auto& nodo : nodos) {
-        cout << "Nodo " << nodo->getCodigo() << ":" << endl;
-        for (const auto& arista : aristas) {
-            // Compara el código del nodo origen con el nodo actual
-            if (arista->getOrigen()->getCodigo() == nodo->getCodigo()) {
-                cout << " (Nodo origen: " << arista->getOrigen()->getCodigo()
-                     << " -> Nodo destino: " << arista->getDestino()->getCodigo()
-                     << " -> Costo del proyecto: " << arista->getCosto()
-                     << " -> Duración del proyecto: " << arista->getDuracion() << " horas)"
-                     << endl;
-            }
-        }
-        cout << endl;
-    }
-}
-
-// Obtener todas las aristas de un nodo específico
-vector<Arista*> Grafo::getAristas(Centro* centro) {
-    vector<Arista*> aristasDeNodo;
     for (const auto& arista : aristas) {
-        // Comparar el nodo origen con el centro proporcionado
-        if (arista->getOrigen() == centro) {
-            aristasDeNodo.push_back(arista);
-        }
+        cout << "Origen: " << arista->getOrigen()->nodo->obtener_dato().getCodigo()  // Código del centro origen
+             << " -> Destino: " << arista->getDestino()->nodo->obtener_dato().getCodigo()  // Código del centro destino
+             << " -> Costo: " << arista->getCosto()
+             << " -> Duracion: " << arista->getDuracion() << " horas" << endl;
     }
-    return aristasDeNodo;
 }
