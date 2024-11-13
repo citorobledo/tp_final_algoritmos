@@ -4,14 +4,14 @@
 #include <iostream>
 #include "centro.h"
 
-//typedef int Centro; // tipo de dato que se almacena en el nodo
+// typedef int Centro; // tipo de dato que se almacena en el nodo
 
 class Nodo
 {
 private:
     // atributos
     Centro dato;
-    Nodo* siguiente;
+    Nodo *siguiente;
     bool ocupado;
     bool borrado;
 
@@ -24,11 +24,11 @@ public:
 
     void cambiar_dato(Centro d);
 
-    void cambiar_siguiente(Nodo* s);
+    void cambiar_siguiente(Nodo *s);
 
     Centro obtener_dato();
 
-    Nodo* obtener_siguiente();
+    Nodo *obtener_siguiente();
 
     bool esta_ocupado();
 

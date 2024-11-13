@@ -8,7 +8,8 @@
 
 using namespace std;
 
-class Centro {
+class Centro
+{
 private:
     string codigo;
     string nombre;

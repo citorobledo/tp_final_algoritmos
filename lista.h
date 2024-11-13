@@ -10,7 +10,7 @@ class Lista
 {
 private:
     // atributos
-    Nodo* primero;
+    Nodo *primero;
     int largo;
 
 public:
@@ -38,23 +38,16 @@ public:
 
     // pos: libera la memoria
     virtual ~Lista();
-
     int obtener_largo();
-
     void mostrar();
-
     void ordenarCentros(int atributo);
-
     string consultarAtributo(int pos, int atributo);
-
     string consultarCentro(string cod);
-
     int buscarPosicion(string codigo);
- 
     Lista clonar();
-    
+
 private:
-    Nodo* obtener_nodo(int pos);
+    Nodo *obtener_nodo(int pos);
 };
 
 #endif // LISTA_H_INCLUDED
