@@ -70,11 +70,21 @@ int main() {
     grafo.mostrarNodos();
     grafo.mostrarAristas();
 
-    string codigoVertice = "CSI";
-    if (grafo.hayNodo(codigoVertice)) {
-        cout << "El nodo con codigo " << codigoVertice << " existe en el grafo." << endl;
-    } else {
-        cout << "El nodo con codigo " << codigoVertice << " no existe en el grafo." << endl;
-    }
+    // Interacción con el usuario para buscar colaboración
+    string codigoOrigen, codigoDestino, criterio;
+
+    cout << "Ingrese el codigo del centro de origen: ";
+    cin >> codigoOrigen;
+    cout << "Ingrese el codigo del centro de destino: ";
+    cin >> codigoDestino;
+    cout << "Si quieres buscar por costo ingresa costo, si es por duracion ingrese duracion: ";
+    cin >> criterio;
+
+    // Buscar la colaboración
+    vector<Arista*> camino = grafo.buscarColaboracion(codigoOrigen, codigoDestino, criterio);
+    
+    // Mostrar los resultados
+    grafo.mostrarResultados(camino, criterio);
+
     return 0;
 }
