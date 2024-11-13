@@ -19,7 +19,6 @@ public:
     string getCodigoDestino() const;
     float getCosto() const;
     float getDuracion() const;
-    void agregarProyecto(const Proyecto& proyecto);
 };
 
 #endif // PROYECTO_H

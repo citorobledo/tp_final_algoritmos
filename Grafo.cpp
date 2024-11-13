@@ -79,7 +79,7 @@ vector<Arista*> Grafo::buscarColaboracion(const string& codigoOrigen, const stri
         visto[nodo] = false;
     }
 
-    // Configura la distancia inicial y marca el nodo origen como visto
+    // Configura la distancia inicial
     distancia[origen] = 0;
 
     // Mientras existan vértices no vistos
