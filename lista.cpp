@@ -44,21 +44,20 @@ void Lista::alta(Centro d, int pos)
 
 void Lista::baja(int pos)
 {
-    Nodo* borrar;
+    Centro d;
     if (pos == 1)
     {
-        borrar = primero;
-        primero = borrar->obtener_siguiente();
+        primero->marcar_desocupado();
+        primero->marcar_borrado();
+        primero->cambiar_dato(d);
     }
     else
     {
-        Nodo* anterior = obtener_nodo(pos - 1);
-        borrar = anterior->obtener_siguiente();
-        Nodo* siguiente = borrar->obtener_siguiente();
-        anterior->cambiar_siguiente(siguiente);
+        Nodo* actual = obtener_nodo(pos);
+        actual->marcar_desocupado();
+        actual->marcar_borrado();
+        actual->cambiar_dato(d);
     }
-    delete borrar;
-    largo--;
 }
 
 Nodo* Lista::obtener_nodo(int pos)
