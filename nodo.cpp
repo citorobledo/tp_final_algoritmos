@@ -6,7 +6,9 @@
 Nodo::Nodo(Centro d)
 {
     dato = d;
-    siguiente = 0;
+    siguiente = nullptr;
+    ocupado = false;
+    borrado = false;
 }
 
 void Nodo::cambiar_dato(Centro d)
@@ -27,4 +29,34 @@ Centro Nodo::obtener_dato()
 Nodo* Nodo::obtener_siguiente()
 {
     return siguiente;
+}
+
+bool Nodo::esta_ocupado()
+{
+    return ocupado;
+}
+
+void Nodo::marcar_ocupado()
+{
+    ocupado = true;
+}
+
+void Nodo::marcar_desocupado()
+{
+    ocupado = false;
+}
+
+bool Nodo::esta_borrado()
+{
+    return borrado;
+}
+
+void Nodo::marcar_borrado()
+{
+    borrado = true;
+}
+
+void Nodo::marcar_no_borrado()
+{
+    borrado = false;
 }

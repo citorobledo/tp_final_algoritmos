@@ -31,6 +31,9 @@ public:
     // pos: devuelve el elemento que esta en pos
     Centro consulta(int pos);
 
+    bool pos_ocupada(int pos);
+
+    // pos: devuelve true si la lista esta vacia
     bool vacia();
 
     // pos: libera la memoria

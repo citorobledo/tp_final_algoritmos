@@ -21,6 +21,7 @@ private:
 public:
     Centro();
     string getCodigo();
+    void setCodigo(string cod);
     string getNombre();
     string getPais();
     float getSuperficie();

@@ -29,6 +29,10 @@ string Centro::getCodigo() {
     return codigo;
 }
 
+void Centro::setCodigo(string cod) {
+    codigo = cod;
+}
+
 string Centro::getNombre() {
     return nombre;
 }

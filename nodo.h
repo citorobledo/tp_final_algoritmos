@@ -12,6 +12,8 @@ private:
     // atributos
     Centro dato;
     Nodo* siguiente;
+    bool ocupado;
+    bool borrado;
 
 public:
     // metodos
@@ -27,6 +29,18 @@ public:
     Centro obtener_dato();
 
     Nodo* obtener_siguiente();
+
+    bool esta_ocupado();
+
+    void marcar_ocupado();
+
+    void marcar_desocupado();
+
+    bool esta_borrado();
+
+    void marcar_borrado();
+
+    void marcar_no_borrado();
 };
 
 #endif // NODO_H_INCLUDED

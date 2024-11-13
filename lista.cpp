@@ -2,9 +2,11 @@
 #include <iostream>
 #include "centro.h"
 
+using namespace std;
+
 Lista::Lista()
 {
-    primero = 0;
+    primero = nullptr;
     largo = 0;
 }
 
@@ -12,37 +14,32 @@ bool Lista::vacia()
 {
     return (largo == 0);
 }
-
+// da de alta un centro en la lista en la posicion pos 1 es el primero
+// si hay un elemento en la posicion lo sobre escribe
 void Lista::alta(Centro d, int pos)
 {
     Nodo* nuevo = new Nodo(d);
-    if (pos == 1)
+    if (obtener_nodo(pos) == nullptr)
     {
         nuevo->cambiar_siguiente(primero);
+        primero = nuevo;
+        largo++;
+    }
+    else if (pos == 1)
+    {
+        nuevo->cambiar_siguiente(primero);
+        nuevo->marcar_ocupado();
         primero = nuevo;
     }
     else
     {
+        Nodo* actual = obtener_nodo(pos);
         Nodo* anterior = obtener_nodo(pos - 1);
-        Nodo* siguiente = anterior->obtener_siguiente();
-        nuevo->cambiar_siguiente(siguiente);
+        nuevo->cambiar_siguiente(actual->obtener_siguiente());
         anterior->cambiar_siguiente(nuevo);
+        nuevo->marcar_ocupado();
+        delete actual;
     }
-    largo++;
-}
-
-Nodo* Lista::obtener_nodo(int pos)
-{
-    Nodo* aux = primero;
-    for(int i = 1; i < pos; i++)
-        aux = aux->obtener_siguiente();
-    return aux;
-}
-
-Centro Lista::consulta(int pos)
-{
-    Nodo* aux = obtener_nodo(pos);
-    return aux->obtener_dato();
 }
 
 void Lista::baja(int pos)
@@ -62,6 +59,26 @@ void Lista::baja(int pos)
     }
     delete borrar;
     largo--;
+}
+
+Nodo* Lista::obtener_nodo(int pos)
+{
+    Nodo* aux = primero;
+    for(int i = 1; i < pos; i++)
+        aux = aux->obtener_siguiente();
+    return aux;
+}
+
+Centro Lista::consulta(int pos)
+{
+    Nodo* aux = obtener_nodo(pos);
+    return aux->obtener_dato();
+}
+
+bool Lista::pos_ocupada(int pos)
+{
+    Nodo* aux = obtener_nodo(pos);
+    return aux->esta_ocupado();
 }
 
 Lista::~Lista()

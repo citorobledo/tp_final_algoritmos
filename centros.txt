@@ -5,3 +5,4 @@ CIT Centro de Innovacion Tecnologica Mexico 5.4 6 8 10
 PII Centro de Innovacion Industrial Chile 7.3 9 15 6
 CPI Centro de Procesos Industriales Peru 4.8 5 6 4
 CAN Centro de Almacenes Nucleares Alemania 10.3 15 15 13
+CEN Centro de Energia Nuclear Francia 9.6 12 18 11
