@@ -59,7 +59,7 @@ bool guardar_centro(Centro centro, Lista &table)
 
 string buscar_centro(string cod, Lista &table)
 {
-  cout << "\n Buscando centro " << cod << endl;
+  cout << "\nBuscando centro " << cod << endl;
   string salida = "Centro no encontrado.";
   int hash = hashFunction(cod, table.obtener_largo()) + 1;
   if (table.consulta(hash).getCodigo() == cod)
