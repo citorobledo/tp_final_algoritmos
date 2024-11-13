@@ -5,46 +5,57 @@
 using namespace std;
 
 
-HashTable::HashTable(int size) : table(size) {}
+HashTable::HashTable() {
+    // Constructor por defecto
+    //codigo = " ";
+    //nombre = " ";
+    //pais = " ";
+    //superficie = 0.0;
+    //laboratorios = 0;
+    //proyectos_nacionales = 0;
+    //proyectos_internacionales = 0;
+}
+ 
 
-int HashTable::hashFunction(const string& key) const {
+int hashFunction(string key, int table) {
     int hash = 0;
     for (char ch : key) {
         //hash = (31 * hash + ch) % table.size();
         hash += ch;
     }
-    return hash;
+    return (hash % table);
 }
 
-bool HashTable::insert( Centro &key, int value) {
-    int hash = hashFunction(key.getCodigo());
- 
-    table[hash].alta(key, value);
-    return true;
-}
-
-bool HashTable::search( string key, int& value)  {
-    int hash = hashFunction(key);
-    int pos = table[hash].buscarPosicion(key);
-    if (pos != -1) {
-        value = pos;
-        return true;
+int quadraticProbing(int hash, int i, int table) { 
+    if ((hash + i * i) % table == 0) {
+        return 1;
     }
-    return false;
-}
-
-bool HashTable::remove( string key) {
-    int hash = hashFunction(key);
-    int pos = table[hash].buscarPosicion(key);
-    if (pos != -1) {
-        table[hash].baja(pos);
-        return true;
+    
+    return ((hash + i * i) % table);
     }
-    return false;
-}
 
-void HashTable::print()  {
-    for ( auto lista : table) {
-        lista.mostrar();
+    bool guardar(Centro centro, Lista table)
+    {
+      int hash = hashFunction(centro.getCodigo(), table.obtener_largo()) + 1;
+      if (!table.pos_ocupada(hash))
+      {
+        table.alta(centro, hash);
+      }
+      else
+      {
+        cout << "Colision en la posicion " << hash << endl;
+        int j = 1;
+        do
+        {
+          int colision = quadraticProbing(hash, j, table.obtener_largo());
+          if (!table.pos_ocupada(colision))
+          {
+            table.alta(centro, colision);
+            break;
+          }
+          cout << "Colision en la posicion " << colision << endl;
+          j++;
+        } while (j <= table.obtener_largo());
+      }
+      return true;
     }
-}

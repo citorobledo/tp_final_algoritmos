@@ -1,32 +1,43 @@
 #include <iostream>
 #include <vector>
-//#include <list>
 #include "lista.h"
 #include "lista.cpp"
 #include "centro.h"
 #include "centro.cpp"
 #include "nodo.h"
 #include "nodo.cpp"
-//#include "hash.h"
+#include "hash.h"
+#include "hash.cpp"
 
 using namespace std;
 
-int hashFunction(string key, int table) {
-    int hash = 0;
-    for (char ch : key) {
-        //hash = (31 * hash + ch) % table.size();
-        hash += ch;
-    }
-    return (hash % table);
-}
+//int hashFunction(string key, int table) {
+//    int hash = 0;
+//    for (char ch : key) {
+//        //hash = (31 * hash + ch) % table.size();
+//        hash += ch;
+//    }
+//    return (hash % table);
+//}
+//
+//int quadraticProbing(int hash, int i, int table) { 
+//    if ((hash + i * i) % table == 0) {
+//        return 1;
+//    }
+//    
+//    return ((hash + i * i) % table);
+//    }
 
-int quadraticProbing(int hash, int i, int table) { 
-    if ((hash + i * i) % table == 0) {
-        return 1;
+    void mostrarMenu() {
+    cout << "Menu de opciones:\n";
+    cout << "1. Consultar por un centro de investigacion en particular\n";
+    cout << "2. Agregar un nuevo centro de investigacion\n";
+    cout << "3. Eliminar un centro de investigacion\n";
+    cout << "4. Mostrar todos los centros de investigacion\n";
+    cout << "5. Ordenar centros\n";
+    cout << "6. Salir\n";
     }
-    
-    return ((hash + i * i) % table);
-    }
+
 int main() {
 
     Lista centros; // = new centros();
@@ -39,7 +50,7 @@ int main() {
    
 
 
-    Lista table ;
+    Lista table ; // lista indexada pos hash
     for (int i = 1; i <= capacity; i++) {
         Centro *c = new Centro();
         table.alta(*c, i);
@@ -69,14 +80,15 @@ int main() {
         }
     }
 
-    Centro c = Centro();
-    Centro c1 = Centro(); 
-    Centro c2 = Centro();
-    Centro c3 = Centro();
-    c.setDatos("CSI", "Centro Cientifico de Innovacion", "España", 12.5, 15, 23, 12);
-    c1.setDatos("2", "Centro 2", "Brasil", 200.0, 20, 10, 6);
-    c2.setDatos("3", "Centro 3", "Argentina", 300.0, 30, 15, 9);
-    c3.setDatos("LAT", "Laboratorio Avanzado de Tecnologia", "Brasil", 8.7, 8, 12, 18);
+    guardar(centros.consulta(1), table);
+    //Centro c = Centro();
+    //Centro c1 = Centro(); 
+    //Centro c2 = Centro();
+    //Centro c3 = Centro();
+    //c.setDatos("CSI", "Centro Cientifico de Innovacion", "España", 12.5, 15, 23, 12);
+    //c1.setDatos("2", "Centro 2", "Brasil", 200.0, 20, 10, 6);
+    //c2.setDatos("3", "Centro 3", "Argentina", 300.0, 30, 15, 9);
+    //c3.setDatos("LAT", "Laboratorio Avanzado de Tecnologia", "Brasil", 8.7, 8, 12, 18);
 //
 //
    //
@@ -91,8 +103,124 @@ int main() {
    // table.obtener_largo();
    // int pos = 1;
     
-    table.baja(3);
-    table.mostrar();
+    //table.baja(3);
+    //table.mostrar();
 
-    return 0;
+
+    //Lista centros; // = new centros();
+    
+//
+    //leerCentros(centros, "../centros.txt");
+
+    Centro c;
+    string codigo, nombre, pais;
+    float superficie;
+    int laboratorios, proyectosNacionales, proyectosInternacionales, pos, atributo, opcion;
+
+    do {
+        mostrarMenu();
+        cout << "Seleccione una opcion: " ;
+        cin >> opcion;
+
+        switch(opcion) {
+            case 1:
+                cout << "Ingrese el codigo del centro a consultar: ";
+                cin >> codigo;
+                cout << table.consultarCentro(codigo) << endl;
+                break;
+
+            case 2:
+                cout << "Ingrese los datos del nuevo centro: " << endl;
+                cout << "Codigo: ";
+                cin >> codigo;
+                cout << "Nombre: ";
+                cin.ignore();
+                getline(cin, nombre);
+                cout << "Pais: ";
+                cin >> pais;
+                cout << "Superficie: ";
+                cin >> superficie;
+                cout << "Laboratorios: ";
+                cin >> laboratorios;
+                cout << "Proyectos nacionales: ";
+                cin >> proyectosNacionales;
+                cout << "Proyectos internacionales: ";
+                cin >> proyectosInternacionales;
+                c.setDatos(codigo, nombre, pais, superficie, laboratorios, proyectosNacionales, proyectosInternacionales);
+                centros.alta(c , 1);
+                cout << "Centro agregado.\n";
+                break;
+
+            case 3:
+                cout << "Ingrese el codigo del centro a eliminar: ";
+                cin >> codigo;
+                pos = centros.buscarPosicion(codigo);
+                centros.baja(pos);
+                cout << "eliminado " << endl;
+                break;
+
+            case 4:
+                centros.mostrar();
+                break;  
+
+            case 5:
+                cout << "Opciones" << endl;
+                cout << "1. Codigo\n";
+                cout << "2. Nombre\n";
+                cout << "3. Pais\n";
+                cout << "4. Superficie\n";
+                cout << "5. Laboratorios\n";
+                cout << "6. Proyectos nacionales\n";
+                cout << "7. Proyectos internacionales\n";
+                cout << "Seleccione el atributo por el cual desea ordenar los centros: ";
+                
+                cin >> atributo;
+                switch (atributo)
+                {
+                case 1:
+                    cout << "Ordenando por codigo...\n";
+                    centros.ordenarCentros(1);
+                    break;
+                case 2:
+                    cout << "Ordenando por nombre...\n";
+                    centros.ordenarCentros(2);
+                    break;
+                case 3:
+                    cout << "Ordenando por pais...\n";
+                    centros.ordenarCentros(3);
+                    break;
+                case 4:
+                    cout << "Ordenando por superficie...\n";
+                    centros.ordenarCentros(4);
+                    break;
+                case 5:
+                    cout << "Ordenando por laboratorios...\n";
+                    centros.ordenarCentros(5);
+                    break;
+                case 6:
+                    cout << "Ordenando por proyectos nacionales...\n";
+                    centros.ordenarCentros(6);
+                    break;
+                case 7:
+                    cout << "Ordenando por proyectos internacionales...\n";
+                    centros.ordenarCentros(7);
+                    break;
+                default:
+                    cout << "ingrese una opcion correcta\n";
+                    break;
+                }
+                break;
+
+            case 6:
+                cout << "Saliendo...\n";
+                break;
+
+            default:
+                cout << "Opcion invalida. Por favor, intente de nuevo.\n";
+                break;
+        }
+    } while(opcion != 6);
+    system("pause");
+
+  return 0;
 }
