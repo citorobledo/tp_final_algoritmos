@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 #include "lista.h"
 #include "lista.cpp"
 #include "centro.h"
@@ -42,8 +41,8 @@ int main() {
 
     Lista centros; // = new centros();
 
-    //leerCentros(centros, "../centros.txt");
-    leerCentros(centros, "centros.txt");
+    leerCentros(centros, "../centros.txt");
+    //leerCentros(centros, "centros.txt");
 
     double loadFactor = 0.7;
     int capacity = centros.obtener_largo() / loadFactor;//implementar el proximo primo para calcular la capacidad
@@ -55,32 +54,40 @@ int main() {
         Centro *c = new Centro();
         table.alta(*c, i);
     }
+
+    for (int i = 1; i <= centros.obtener_largo(); i++) {
+        guardar_centro(centros.consulta(i), table);
+    }
     
 
 
-    for (int i = 1; i <= centros.obtener_largo(); i++) {
-        int hash = hashFunction(centros.consulta(i).getCodigo(), table.obtener_largo()) +1;
-        if(!table.pos_ocupada(hash)){
-            table.alta(centros.consulta(i), hash);
-        }
-        else
-        {
-            cout << "Colision en la posicion " << hash << endl;
-            int j = 1;
-            do {
-                int colision = quadraticProbing(hash, j, table.obtener_largo());
-                if(!table.pos_ocupada(colision)){
-                    table.alta(centros.consulta(i), colision);
-                    break;
-                }
-                cout << "Colision en la posicion " << colision << endl;
-                j++;
-            }
-            while (j <= table.obtener_largo());
-        }
-    }
+   //for (int i = 1; i <= centros.obtener_largo(); i++) {
+   //    int hash = hashFunction(centros.consulta(i).getCodigo(), table.obtener_largo()) +1;
+   //    if(!table.pos_ocupada(hash)){
+   //        table.alta(centros.consulta(i), hash);
+   //    }
+   //    else
+   //    {
+   //        cout << "Colision en la posicion " << hash << endl;
+   //        int j = 1;
+   //        do {
+   //            int colision = quadraticProbing(hash, j, table.obtener_largo());
+   //            if(!table.pos_ocupada(colision)){
+   //                table.alta(centros.consulta(i), colision);
+   //                break;
+   //            }
+   //            cout << "Colision en la posicion " << colision << endl;
+   //            j++;
+   //        }
+   //        while (j <= table.obtener_largo());
+   //    }
+   //}
 
-    guardar(centros.consulta(1), table);
+    //guardar_centro(centros.consulta(1), table);
+    //cout << buscar_centro("CAN", table).getDatos() << endl;
+    
+
+
     //Centro c = Centro();
     //Centro c1 = Centro(); 
     //Centro c2 = Centro();
@@ -126,7 +133,7 @@ int main() {
             case 1:
                 cout << "Ingrese el codigo del centro a consultar: ";
                 cin >> codigo;
-                cout << table.consultarCentro(codigo) << endl;
+                cout << buscar_centro(codigo, table) << endl;
                 break;
 
             case 2:
@@ -147,20 +154,20 @@ int main() {
                 cout << "Proyectos internacionales: ";
                 cin >> proyectosInternacionales;
                 c.setDatos(codigo, nombre, pais, superficie, laboratorios, proyectosNacionales, proyectosInternacionales);
-                centros.alta(c , 1);
+                guardar_centro(c, table);
                 cout << "Centro agregado.\n";
                 break;
 
             case 3:
                 cout << "Ingrese el codigo del centro a eliminar: ";
                 cin >> codigo;
-                pos = centros.buscarPosicion(codigo);
-                centros.baja(pos);
+                //pos = centros.buscarPosicion(codigo);
+                borrar_centro(codigo, table);
                 cout << "eliminado " << endl;
                 break;
 
             case 4:
-                centros.mostrar();
+                table.mostrar();
                 break;  
 
             case 5:
@@ -179,31 +186,31 @@ int main() {
                 {
                 case 1:
                     cout << "Ordenando por codigo...\n";
-                    centros.ordenarCentros(1);
+                    table.ordenarCentros(1);
                     break;
                 case 2:
                     cout << "Ordenando por nombre...\n";
-                    centros.ordenarCentros(2);
+                    table.ordenarCentros(2);
                     break;
                 case 3:
                     cout << "Ordenando por pais...\n";
-                    centros.ordenarCentros(3);
+                    table.ordenarCentros(3);
                     break;
                 case 4:
                     cout << "Ordenando por superficie...\n";
-                    centros.ordenarCentros(4);
+                    table.ordenarCentros(4);
                     break;
                 case 5:
                     cout << "Ordenando por laboratorios...\n";
-                    centros.ordenarCentros(5);
+                    table.ordenarCentros(5);
                     break;
                 case 6:
                     cout << "Ordenando por proyectos nacionales...\n";
-                    centros.ordenarCentros(6);
+                    table.ordenarCentros(6);
                     break;
                 case 7:
                     cout << "Ordenando por proyectos internacionales...\n";
-                    centros.ordenarCentros(7);
+                    table.ordenarCentros(7);
                     break;
                 default:
                     cout << "ingrese una opcion correcta\n";

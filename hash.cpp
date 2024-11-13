@@ -1,6 +1,8 @@
 #include "hash.h"
 #include <iostream>
 #include <string>
+#include "lista.h"
+#include "centro.h"
 
 using namespace std;
 
@@ -34,7 +36,7 @@ int quadraticProbing(int hash, int i, int table) {
     return ((hash + i * i) % table);
     }
 
-    bool guardar(Centro centro, Lista table)
+    bool guardar_centro(Centro centro, Lista &table)
     {
       int hash = hashFunction(centro.getCodigo(), table.obtener_largo()) + 1;
       if (!table.pos_ocupada(hash))
@@ -58,4 +60,54 @@ int quadraticProbing(int hash, int i, int table) {
         } while (j <= table.obtener_largo());
       }
       return true;
+    }
+
+    string buscar_centro(string cod, Lista &table)
+    {
+      string salida = "Centro no encontrado.";
+      int hash = hashFunction(cod, table.obtener_largo()) + 1;
+      if (table.consulta(hash).getCodigo() == cod)
+      {
+        salida = table.consulta(hash).getDatos();
+      }
+      else
+      {
+        int j = 1;
+        do
+        {
+          int colision = quadraticProbing(hash, j, table.obtener_largo());
+          if (table.consulta(colision).getCodigo() == cod)
+          {
+            salida = table.consulta(colision).getDatos();
+            break;
+          }
+          j++;
+        } while (j <= table.obtener_largo());
+      }
+      
+      // Add a default return statement
+      return salida; // Replace 'Centro()' with the appropriate default value
+    }
+
+    void borrar_centro(string cod, Lista &table)
+    {
+      int hash = hashFunction(cod, table.obtener_largo()) + 1;
+      if (table.consulta(hash).getCodigo() == cod)
+      {
+        table.baja(hash);
+      }
+      else
+      {
+        int j = 1;
+        do
+        {
+          int colision = quadraticProbing(hash, j, table.obtener_largo());
+          if (table.consulta(colision).getCodigo() == cod)
+          {
+            table.baja(colision);
+            break;
+          }
+          j++;
+        } while (j <= table.obtener_largo());
+      }
     }

@@ -110,14 +110,15 @@ void Lista::mostrar()
 
 void Lista::ordenarCentros( int at) {
     cout << "Ordenando centros... :" << endl;
-    for (int i = 0; i < obtener_largo(); i++) {
+    for (int i = 0; i <= obtener_largo(); i++) {
         for (int j = 1; j < obtener_largo() ; j++) {
             
             // implementar un switch para ordenar por cualquier atributo
             if (consultarAtributo(j, at) > consultarAtributo(j+1, at)) {
-                Centro temp = consulta(j);
-                baja(j);
-                alta(temp, j + 1);
+                Centro actual = consulta(j);
+                Centro temp = consulta(j + 1);
+                alta(temp, j);
+                alta(actual, j + 1);
             }
         }
     }

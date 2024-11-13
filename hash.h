@@ -7,6 +7,7 @@
 #include "centro.h"
 
 
+
 using namespace std;
 
 class HashTable {
@@ -17,9 +18,9 @@ public:
 
     int hashFunction(string key, int table);
     int quadraticProbing(int hash, int i, int table);
-    bool guardar( Centro centro, Lista table);
-    bool buscar( string key, int& value) ;
-    bool borrar( string key);
+    bool guardar_centro( Centro centro, Lista &table);
+    string buscar_centro( string cod, Lista &table); ;
+    void borrar_centro( string cod, Lista &table);
     void imprimir() ;
 
 
