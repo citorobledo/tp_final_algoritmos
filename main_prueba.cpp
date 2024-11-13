@@ -118,11 +118,11 @@ int main() {
     
 //
     //leerCentros(centros, "../centros.txt");
-
     Centro c;
     string codigo, nombre, pais;
     float superficie;
     int laboratorios, proyectosNacionales, proyectosInternacionales, pos, atributo, opcion;
+    Lista table2 = table.clonar();
 
     do {
         mostrarMenu();
@@ -182,41 +182,50 @@ int main() {
                 cout << "Seleccione el atributo por el cual desea ordenar los centros: ";
                 
                 cin >> atributo;
+                
                 switch (atributo)
                 {
                 case 1:
                     cout << "Ordenando por codigo...\n";
-                    table.ordenarCentros(1);
+                    
+                    table2.ordenarCentros(1);
+                    table2.mostrar();
                     break;
                 case 2:
                     cout << "Ordenando por nombre...\n";
-                    table.ordenarCentros(2);
+                    table2.ordenarCentros(2);
+                    table2.mostrar();
                     break;
                 case 3:
                     cout << "Ordenando por pais...\n";
-                    table.ordenarCentros(3);
+                    table2.ordenarCentros(3);
+                    table2.mostrar();
                     break;
                 case 4:
                     cout << "Ordenando por superficie...\n";
-                    table.ordenarCentros(4);
+                    table2.ordenarCentros(4);
+                    table2.mostrar();
                     break;
                 case 5:
                     cout << "Ordenando por laboratorios...\n";
-                    table.ordenarCentros(5);
+                    table2.ordenarCentros(5);
+                    table2.mostrar();
                     break;
                 case 6:
                     cout << "Ordenando por proyectos nacionales...\n";
-                    table.ordenarCentros(6);
+                    table2.ordenarCentros(6);
+                    table2.mostrar();
                     break;
                 case 7:
                     cout << "Ordenando por proyectos internacionales...\n";
-                    table.ordenarCentros(7);
+                    table2.ordenarCentros(7);
+                    table2.mostrar();
                     break;
                 default:
                     cout << "ingrese una opcion correcta\n";
                     break;
                 }
-                break;
+                break;// fin case 5
 
             case 6:
                 cout << "Saliendo...\n";
@@ -225,7 +234,7 @@ int main() {
             default:
                 cout << "Opcion invalida. Por favor, intente de nuevo.\n";
                 break;
-        }
+        }// fin switch opcion
     } while(opcion != 6);
     system("pause");
 

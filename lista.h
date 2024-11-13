@@ -50,6 +50,8 @@ public:
     string consultarCentro(string cod);
 
     int buscarPosicion(string codigo);
+ 
+    Lista clonar();
     
 private:
     Nodo* obtener_nodo(int pos);

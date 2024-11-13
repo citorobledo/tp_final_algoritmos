@@ -173,3 +173,16 @@ int Lista::buscarPosicion(string codigo) {
     }
     return pos;
 }
+
+// Método para clonar la lista 
+Lista Lista::clonar() { 
+    Lista nueva_lista = Lista(); 
+    Nodo* actual = primero; 
+    int pos = 1; 
+    while (actual->obtener_siguiente() != nullptr) { 
+        nueva_lista.alta(actual ->obtener_dato(), pos);
+        actual = actual->obtener_siguiente();
+        pos++; 
+    } 
+    return nueva_lista; 
+}
