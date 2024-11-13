@@ -2,5 +2,5 @@
 #include "Vertice.h"
 using namespace std;
 
-// Constructor de Nodo que toma los datos del proyecto directamente.
+// Constructor de la clase Vertice que inicializa el vértice con los datos de un Nodo.
 Vertice::Vertice(Nodo* nodo) : nodo(nodo) {}

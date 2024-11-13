@@ -51,7 +51,7 @@ void Grafo::mostrarAristas() {
     for (const auto& arista : aristas) {
         cout << "Origen: " << arista->getOrigen()->nodo->obtener_dato().getCodigo()  // Código del centro origen
              << " -> Destino: " << arista->getDestino()->nodo->obtener_dato().getCodigo()  // Código del centro destino
-             << " -> Costo: " << arista->getCosto()
+             << " -> Costo: " << arista->getCosto() << " pesos"
              << " -> Duracion: " << arista->getDuracion() << " horas" << endl;
     }
 }
@@ -68,11 +68,12 @@ vector<Arista*> Grafo::buscarColaboracion(const string& codigoOrigen, const stri
         return {};
     }
 
-    // Inicializa el mapa de distancias con infinito y el mapa de vistos a false
+    // Inicializa el mapa de distancias con infinito, el mapa de vistos a false y el mapa de sucesores
     unordered_map<Vertice*, double> distancia;
     unordered_map<Vertice*, bool> visto;
-    unordered_map<Vertice*, Arista*> predecesores;
+    unordered_map<Vertice*, Arista*> sucesores;
 
+    // Configura todas las distancias a infinito y los nodos a no vistos
     for (auto& nodo : nodos) {
         distancia[nodo] = numeric_limits<double>::infinity();
         visto[nodo] = false;
@@ -86,7 +87,7 @@ vector<Arista*> Grafo::buscarColaboracion(const string& codigoOrigen, const stri
         // Encuentra el vértice con la menor distancia que aún no se ha visto
         Vertice* verticeMin = nullptr;
         double minDistancia = numeric_limits<double>::infinity();
-        
+
         for (auto& nodo : nodos) {
             if (!visto[nodo] && distancia[nodo] < minDistancia) {
                 minDistancia = distancia[nodo];
@@ -118,28 +119,32 @@ vector<Arista*> Grafo::buscarColaboracion(const string& codigoOrigen, const stri
                 // Actualiza la distancia si encuentra un camino más corto
                 if (distancia[vecino] > distancia[verticeMin] + peso) {
                     distancia[vecino] = distancia[verticeMin] + peso;
-                    predecesores[vecino] = arista;
+                    sucesores[vecino] = arista;  // Actualizamos el sucesor con la arista
                 }
             }
         }
     }
 
-    // Reconstrucción del camino desde destino a origen usando el mapa de predecesores
-   vector<Arista*> camino;
+    // Reconstrucción del camino desde origen a destino usando el mapa de sucesores
+    vector<Arista*> camino;
+    Vertice* v = destino;
 
-    // Partimos desde el destino y seguimos hacia el origen usando predecesores
-    for (Vertice* v = destino; v != nullptr && v != origen; v = predecesores[v] ? predecesores[v]->getOrigen() : nullptr) {
-        if (predecesores.find(v) == predecesores.end()) {
-            cout << "No hay conexion posible." << endl;
+    // Seguimos el camino desde el destino hacia el origen
+    while (v != nullptr && v != origen) {
+        if (sucesores.find(v) == sucesores.end()) {
+            cout << "No hay conexión posible." << endl;
             return {};
         }
-        // Insertamos cada arista al inicio del vector para evitar la inversión posterior
-        camino.insert(camino.begin(), predecesores[v]);
+
+        Arista* arista = sucesores[v];
+        camino.insert(camino.begin(), arista); // Insertamos la arista en el principio para no invertir después
+
+        v = arista->getOrigen(); // Retrocedemos al origen de la arista
     }
 
-    // Si el camino está vacío o no conecta al origen, significa que no hay conexión posible
+    // Verificamos si el camino está vacío o si no conecta al origen
     if (camino.empty() || camino.front()->getOrigen() != origen) {
-        cout << "No hay conexion posible." << endl;
+        cout << "No hay conexión posible." << endl;
         return {};
     }
 
@@ -162,7 +167,7 @@ void Grafo::mostrarResultados(const vector<Arista*>& camino, const string& crite
     for (const auto& arista : camino) {
             cout << "Origen: " << arista->getOrigen()->nodo->obtener_dato().getCodigo()
                   << " -> Destino: " << arista->getDestino()->nodo->obtener_dato().getCodigo()
-                  << " -> Costo: " << arista->getCosto()
+                  << " -> Costo: " << arista->getCosto() << " pesos"
                   << " -> Duracion: " << arista->getDuracion() << " horas" << endl;
 
         totalCosto += arista->getCosto();
@@ -171,7 +176,7 @@ void Grafo::mostrarResultados(const vector<Arista*>& camino, const string& crite
 
     // Muestra el total del costo o la duración dependiendo del criterio de búsqueda
     if (criterio == "costo") {
-        cout << "Total costo: " << totalCosto << endl;
+        cout << "Total costo: " << totalCosto << " pesos" << endl;
     } else if (criterio == "duracion") {
         cout << "Total duracion: " << totalDuracion << " horas" << endl;
     } else {

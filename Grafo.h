@@ -5,8 +5,8 @@
 #include <string>
 #include <unordered_map>
 #include <limits>
-#include "Vertice.h"    // Incluye Vertice
-#include "Arista.h"     // Incluye Arista
+#include "Vertice.h"   
+#include "Arista.h"    
 
 class Grafo {
 private:
@@ -16,7 +16,6 @@ private:
 public:
     Grafo() = default;
 
-    void cargarDesdeArchivo(const std::string& filename);
     void agregarNodo(Vertice* vertice);
     void agregarArista(Arista* arista);
     bool hayNodo(const std::string& codigo);
@@ -30,7 +29,6 @@ public:
     // Método para mostrar los resultados
     void mostrarResultados(const std::vector<Arista*>& camino, const string& criterio);
 
-    std::vector<Arista*> getAristas(Vertice* vertice);
 };
 
 #endif // GRAFO_H
